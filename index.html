@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-
-  <div class="container">
-      <h1>My Bookmarks</h1>
-      <form id="js-bookmarks-form">
-        <label for="bookmarks-entry">Add Bookmark</label><!--hidden class until Add bookmark is pressed-->
-        <input id ="bookmarks-entry" type="text" name="bookmarks-entry" class="js-bookmarks-entry" placeholder="Cats"><!--hidden class until Add bookmark is pressed-->
-        <button type="submit">Add Bookmark</button>
+  <h1>My Bookmarks</h1>
+  <div class="form-container">
+    <button id="js-add-bookmark" type="submit">Add Bookmark</button>  
+      <form id="js-addForm">
+        <label for="bookmarks-entry">Title</label>
+          <input name="title" id="bookmarks-entry" type="text" class="js-bookmarks-entry" placeholder="Bookmark title" required>
+        <label for="bookmarks-entry">URL</label>
+          <input name="url" id="bookmarks-entry" type="link" class="js-bookmarks-entry" placeholder="Your link to site here" required>
+        <label for="bookmarks-entry">Description</label>
+          </label><input name="description" id="bookmarks-entry" type="text" class="js-bookmarks-entry" placeholder="What is at your bookmark" required>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
       </form>
 
       <section class="filter">
@@ -28,7 +38,7 @@
       <section>
           <ul id="js-bookmarks-list">
               <li>
-                <p>title</p>
+                <p>Title</p>
                 <button id="" type="">Show More</button>
                 <button id="" type="">Delete</button>
                 <p>Stars***</p>
