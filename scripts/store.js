@@ -16,3 +16,11 @@
 //         "rating": 4
 //     }
 // ]
+
+const STORE = (function() {
+
+
+
+
+
+}());

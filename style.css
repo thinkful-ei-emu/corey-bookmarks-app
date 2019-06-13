@@ -16,3 +16,21 @@
 #js-addform{
     display: flex;
 }
+
+.formDisplay{
+    display: null;
+    flex-direction: null;
+    border: solid 1px black;
+    padding: 20px;
+    margin: 10px;
+}
+
+.filter{
+    border: solid 1px black;
+    padding: 10px;
+    margin: 10px;
+}
+
+#js-bookmarks-list{
+    list-style: none;
+}
