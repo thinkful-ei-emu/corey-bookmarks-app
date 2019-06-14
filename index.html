@@ -11,43 +11,40 @@
 </head>
 
 <body>
-<header>  
-    <h1>My Bookmarks</h1>
+
+<header role="page-heading">
+  <div class="header"> 
+        <div>
+            <h1>My Bookmarks</h1>
+        </div>
+  </div> 
 </header>
 
-<main>
-
+<main role="main">
+  <section>
     <div class="form-container">
-        <button id="js-add-bookmark" type="button">Add Bookmark</button>
+        <button name="show-new-form-container" id="js-add-bookmark" type="button">New Bookmark</button>
     </div>
 
-    <!--filter-->
-    <div>
-      <section class="filter">
-        <label for ="rate">Filter</label>
-        <select class="rate">
-          <option value="1 stars">Show All</option>
-          <option value="2 stars">2+</option>
-          <option value="3 stars">3+</option>
-          <option value="4 stars">4+</option>
-          <option value="5 stars">5 stars</option>
+      <div class="filter">
+      
+        <label for ="rate" id="filter-stars">Filter by Minimum Stars Required</label>
+        <select id="rate-drop-down">
+          <option value="1">No Filter</option>
+          <option value="2">2+</option>
+          <option value="3">3+</option>
+          <option value="4">4+</option>
+          <option value="5">5</option>
         </select>
-    </div>
+        <button type="submit" class="filter-items-submit">Filter</button>
+      </div>
     
-    <div>            
-        <ul id="js-bookmarks-list">
-              
-            <li>
-            <p>Title</p>
-            <button id="" type="">Show More</button>
-            <button id="" type="">Delete</button>
-            <p>Stars***</p>
-            </li>
+    <section class="new-bookmark-location">            
+        <ul class="js-bookmarks-list">
 
         </ul>
-    </div>
+    </section>
     
-
 </main>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
