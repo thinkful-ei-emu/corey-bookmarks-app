@@ -2,11 +2,11 @@
 'use strict';
 
 
-//const bookmarkApp = (function(){
+const bookmarkApp = (function(){
 
-function handleNewBookmarkClicked() {
-  $('#js-add-bookmark').click(function() {$('.form-container').html(
-    `
+  function generateNewBookmarkClicked() {
+    $('#js-add-bookmark').click(function() {$('.form-container').html(
+      `
     <form id="js-addForm" class="formDisplay">
     <div>
       <label for="bookmarks-entry">Title</label>
@@ -43,34 +43,59 @@ function handleNewBookmarkClicked() {
       
     </form>
    `
-  );
-  });
-}
-  
-function handleNewBookmarkSubmit(){}
+    );
+    });
+  }
+
+  function render(){
+
+  }
+
+  function generateNewBookmarkSubmit(){
+    $('js-addForm.formDisplay').on('submit', '.formContainer', function (event) {
+      event.preventDefault();
+      let bookmarkName = $('new-title-bookmark').val();
+      let bookmarkURL = $('new-url-bookmark').val();
+      let bookmarkDescription = $('new-dscrp-bookmark').val();
+      //let bookmarkRating = $(' ').val();
+      console.log(bookmarkName);
+      let newObj = {
+        title: bookmarkName,
+        url: bookmarkURL,
+        desc: bookmarkDescription,
+        rating: bookmarkRatingNumber
+      };
+      console.log(newObj);
+    });
+  }
+
+  function generateBookmarks(){
+    //display bookmarks on page, collapsed with title, url, description, rating
+    
+  }
 
   
   
-function handleFilter(){}
+  function handleFilter(){}
 
 
 
-function handleDeleteBookmark(){}
+  function handleDeleteBookmark(){}
 
 
 
-function handleClicks() {
-  handleNewBookmarkClicked();
-  handleNewBookmarkSubmit();
-  handleFilter();
-  handleDeleteBookmark();
-}
+  function handleClicks() {
+    generateNewBookmarkClicked();
+    generateNewBookmarkSubmit();
+    handleFilter();
+    handleDeleteBookmark();
+  }
 
-handleClicks();
+  handleClicks();
 
-//return {
-//     render: render,
-//handleClicks: handleClicks,
-//};
+  return {
+    render: render,
+    handleClicks: handleClicks,
+  };
 
-//})();
+})();

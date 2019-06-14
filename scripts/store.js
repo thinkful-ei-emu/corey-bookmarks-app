@@ -19,8 +19,27 @@
 
 const STORE = (function() {
 
+  const addBookmark = function(bookmark){
+    this.bookmarks.forEach(bookmark => (bookmark.expand = false));
+    this.bookmarks.push(bookmark);
+  };
 
 
 
+  const expandBookmark = function(){
+
+  };
+
+
+
+  const deleteBookmark = function(){
+
+  };
+
+  return {
+    addBookmark,
+    expandBookmark,
+    deleteBookmark
+  };
 
 }());

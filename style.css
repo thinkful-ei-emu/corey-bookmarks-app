@@ -13,9 +13,6 @@ body{
 }
 
 .formDisplay{
-    display: inline-block;
-    
-    flex-direction: null;
     padding: 20px;
     margin: 10px;
 }
@@ -41,7 +38,7 @@ body{
 }
 
 #filter-stars{
-    font-size: 
+    
 }
 
 .checked {
@@ -49,9 +46,13 @@ body{
 }
 
 #js-addform{
-    display: flex;
+    
 }
 
 #js-bookmarks-list{
     list-style: none;
+}
+
+.bookmarks-onPage{
+    border: solid 1px black;
 }
