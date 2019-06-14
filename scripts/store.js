@@ -20,14 +20,14 @@
 const STORE = (function() {
 
   const addBookmark = function(bookmark){
-    this.bookmarks.forEach(bookmark => (bookmark.expand = false));
-    this.bookmarks.push(bookmark);
+    bookmark.expanded = false;
+    STORE.bookmarksAry.push(bookmark);
   };
 
 
 
   const expandBookmark = function(){
-
+    console.log('test expandBookmark');
   };
 
 
@@ -37,6 +37,7 @@ const STORE = (function() {
   };
 
   return {
+    bookmarksAry:[],
     addBookmark,
     expandBookmark,
     deleteBookmark

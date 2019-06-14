@@ -4,7 +4,7 @@
 
 const bookmarkApp = (function(){
 
-  function generateNewBookmarkClicked() {
+  function generateNewBookmarkHtml() {
     $('#js-add-bookmark').click(function() {$('.form-container').html(
       `
     <form id="js-addForm" class="formDisplay">
@@ -18,7 +18,7 @@ const bookmarkApp = (function(){
     </div>
     <div>
       <label for="new-bookmark">Description</label>
-      <input name="description" id="new-dscrp-bookmark" type="text" class="js-new-bookmark" placeholder="Describe your bookmark" required>
+      <input name="description" id="new-dscrp-bookmark" type="text" class="js-new-bookmark" placeholder="Describe your bookmark">
     </div>
     <div class="radio-buttons" >
     <label for="title" class="radio-title">Give it a rating!</label>
@@ -47,9 +47,13 @@ const bookmarkApp = (function(){
     });
   }
 
-  function render(){
+  const render = function(){
+    // Filter item list if store prop is true by item.checked === false
+    // let items = [ ...store.items ];
+    
 
-  }
+  };
+
 
   function generateNewBookmarkSubmit(){
     $('js-addForm.formDisplay').on('submit', '.formContainer', function (event) {
@@ -58,7 +62,8 @@ const bookmarkApp = (function(){
       let bookmarkURL = $('new-url-bookmark').val();
       let bookmarkDescription = $('new-dscrp-bookmark').val();
       //let bookmarkRating = $(' ').val();
-      console.log(bookmarkName);
+      //console.log(bookmarkName);
+      
       let newObj = {
         title: bookmarkName,
         url: bookmarkURL,
@@ -71,31 +76,27 @@ const bookmarkApp = (function(){
 
   function generateBookmarks(){
     //display bookmarks on page, collapsed with title, url, description, rating
-    
   }
 
   
-  
-  function handleFilter(){}
-
+  function handleFilter(){
+  }
 
 
   function handleDeleteBookmark(){}
 
 
 
-  function handleClicks() {
-    generateNewBookmarkClicked();
+  function bindEventListeners() {
+    generateNewBookmarkHtml();
     generateNewBookmarkSubmit();
     handleFilter();
     handleDeleteBookmark();
   }
 
-  handleClicks();
-
   return {
     render: render,
-    handleClicks: handleClicks,
+    bindEventListeners: bindEventListeners,
   };
 
 })();
