@@ -2,11 +2,12 @@
 'use strict';
 
 // update store, call render
-
 const bookmarkApp = (function(){
-
+  const bookmarksContainer = $('.js-bookmarks-list');
+  const formContainer = $('.form-container');
+  
   function newBookmarkButtonHandler() {
-    $('.form-container').on('click','#js-add-bookmark', function(event) {
+    formContainer.on('click','#js-add-bookmark', function(event) {
       event.preventDefault();
       STORE.addFormVisible = true;
       render();
@@ -15,13 +16,21 @@ const bookmarkApp = (function(){
 
   const render = function(){
     // Filter item list if store prop is true by item.checked === false
-    // let items = [ ...store.items ];
+    //let items = [ ...store.items ];
     if(STORE.addFormVisible === true){
-      $('.form-container').html(generateFormHtml());
+      formContainer.html(generateFormHtml());
     } else {
-      $('.form-container').html('<button name="show-new-form-container" id="js-add-bookmark" type="button">New Bookmark</button>');
+      formContainer.html('<button name="show-new-form-container" id="js-add-bookmark" type="button">New Bookmark</button>');
     }
+    const bookmarksHtml = generateBookmarkItemsString(STORE.bookmarksAry);
+    bookmarksContainer.html(bookmarksHtml);
   };
+
+
+  // function generateBookmarkString(newBookmark) {
+  //   const items = bookmarks.map((item) => generateItemElement(item));
+  //   return items.join('');
+  // }
 
   //.html .hide .show outside of render BAD
   //no button.click thing .html
@@ -30,15 +39,15 @@ const bookmarkApp = (function(){
     return `
     <form id="js-addForm" class="newBookmarkForm">
     <div>
-      <label for="bookmarks-entry">Title</label>
+      <label for="new-title-bookmark">Title</label>
       <input name="title" id="new-title-bookmark" type="text" class="js-new-bookmark" placeholder="Bookmark title" required>
     </div>
     <div>
-      <label for="bookmarks-entry">URL</label>
+      <label for="new-url-bookmark">URL</label>
       <input name="url" id="new-url-bookmark" type="link" class="js-new-bookmark" placeholder="URL here" required>
     </div>
     <div>
-      <label for="new-bookmark">Description</label>
+      <label for="new-dscrp-bookmark">Description</label>
       <input name="description" id="new-dscrp-bookmark" type="text" class="js-new-bookmark" placeholder="Describe your bookmark">
     </div>
     <div class="radio-buttons" >
@@ -66,8 +75,10 @@ const bookmarkApp = (function(){
    `;
   }
 
+  
+
   function generateNewBookmarkSubmit(){
-    $('.form-container').on('submit', '#js-addForm', function (event) {
+    formContainer.on('submit', '#js-addForm', function (event) {
       event.preventDefault();
 
       let bookmarkName = $('#new-title-bookmark').val();
@@ -83,27 +94,66 @@ const bookmarkApp = (function(){
       };
       //console.log('newbookMark = ', newBookmark);
 
-      STORE.addFormVisible = false;
       api.createBookmarkApi(newBookmark)
         .then(function (newItem) {
           console.log('item from fetch ', newItem);
           STORE.addBookmark(newItem);
+          STORE.addFormVisible = false;
+          render();
         });
     });
   }
+
   //display bookmarks on page, collapsed with title, url, description, rating
 
-  function generateBookmarks(bookmarkName){
-    // return `
-    // <div class="bookmarks-onPage">
-    //   <p>${bookmarkName}</p>
-    //   <a href ="${bookmarkURL}">Visit Site</a>
-    //   <p>${bookmarkDescription}</p>
-    //   <button calss="expand-details">Show more</button>
-    //   <button class="delete-bookmark">Delete</button>
-    // </div>
-    // `;
+  function generateBookmarkItemsString(bookmarksAry) {
+    const items = bookmarksAry.map(generateItemElement);
+    return items.join('');
   }
+
+  function generateItemElement(item){
+    const expandedClass = !item.expanded ? 'hidden': '';
+    const showMoreBtnText = item.expanded ? 'Show Less' : 'Show more';
+
+    return (
+      `<li data-id="${item.id}">
+        <div class="bookmarks-onPage">
+          <div id="box">
+            <p>Title: ${item.title}</p>
+            <a class="${expandedClass}" href="${item.url}">Visit Site</a>
+            <p class="${expandedClass}">Description: ${item.desc}</p>
+            <p>Rating: ${item.rating}</p>
+            <button class="expand-details" onclick="STORE.toggleExpandBookmark('${item.id}')">
+              ${showMoreBtnText}
+            </button>
+            <button class="delete-bookmark" onclick="STORE.deleteBookmark('${item.id}')">
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>`
+    );
+  }
+
+  //function generateBookmarks(newitem){
+  //formContainer.on('submit', '.newBookmark-location', function (event) {
+  //event.preventDefault();
+  //const expanded = newBookmark.expand ? 'expanded'
+  //return `
+  //   <li>
+  //     <div class="bookmarks-onPage">
+  //       <div id="box">
+  //         <p>${title.bookmarkName}</p>
+  //         <a href ="${url.bookmarkURL}">Visit Site</a>
+  //         <p>${description.bookmarkDescription}</p>
+  //         <button calss="expand-details">Show more</button>
+  //         <button class="delete-bookmark">Delete</button>
+  //       </div>
+  //     </div>
+  //   </li>
+  // `;
+  //});
+  //}
 
 
   

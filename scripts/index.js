@@ -6,9 +6,9 @@ $(document).ready(function() {
   bookmarkApp.render();  //renders new bookmark form
   bookmarkApp.bindEventListeners();  //bind listeners in bookmarks app
 
-  //api.getBookmarkApi(newBookmark)
-    // .then((bookmarksAry) => {
-    //  bookmarksAry.forEach((newBookmark) => STORE.addBookmark(newBookmark)); //add this to STORE then call render
-    //  bookmarkApp.render();
-    // });
+  //api.getItems()
+  // .then((bookmarksAry) => {
+  //  bookmarksAry.forEach((newBookmark) => STORE.addBookmark(newBookmark)); //add this to STORE then call render
+  //  bookmarkApp.render();
+  // });
 });

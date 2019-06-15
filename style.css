@@ -1,4 +1,4 @@
-/*
+
 .header{
     margin-bottom: 30px;
     height: 80px;
@@ -8,6 +8,11 @@
     text-align: center;
 }
 
+.hidden{
+    display: none;
+}
+
+/*
 body{
     background-color: rgb(204, 204, 204);
 }

@@ -33,10 +33,10 @@ const api = (function(){
   
 
 
-  const getBookmarkApi = function(){
+  function getBookmarkApi(){
     console.log('testing getBookmarkApi');
     return listApiFetch(`${BASE_URL}/bookmarks`);
-  };
+  }
 
 
   const createBookmarkApi = function(newBookmark){
@@ -47,7 +47,6 @@ const api = (function(){
       rating: newBookmark.rating
     });
     //console.log('test for createBookmarkApi ', newBookmarkJson);
-    let error;
     return listApiFetch(`${BASE_URL}/bookmarks`, {
       method: 'POST',
       headers: new Headers({

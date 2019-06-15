@@ -17,23 +17,34 @@ const STORE = (function() {
     STORE.bookmarksAry.push(bookmark);
   };
 
-
-
-  const expandBookmark = function(){
+  const toggleExpandBookmark = function(id){
     console.log('test expandBookmark');
+    const bookmarkToExpand = STORE.bookmarksAry.find((bookmark) => {
+      return bookmark.id === id;
+    });
+
+    bookmarkToExpand.expanded = !bookmarkToExpand.expanded;
+    bookmarkApp.render();
   };
 
+  const deleteBookmark = function(id){
+    STORE.bookmarksAry = STORE.bookmarksAry.filter((bookmark) => {
+      return bookmark.id !== id;
+    });
 
-
-  const deleteBookmark = function(){
-
+    // API call to delete here
+    api.deleteBookmarkApi(id)
+      .catch((error) => {
+        // error handling
+      })
+    bookmarkApp.render();
   };
 
   return {
     addFormVisible: false,
     bookmarksAry:[],
     addBookmark,
-    expandBookmark,
+    toggleExpandBookmark,
     deleteBookmark
   };
 
