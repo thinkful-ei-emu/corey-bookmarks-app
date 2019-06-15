@@ -2,13 +2,6 @@
 // example STORE array
 // [
 //     {
-//         "id": "cjwv2x3h8000y0kygwo1avwrj",
-//         "title": "bookmark",
-//         "url": "https://www.fdsf.com/cats",
-//         "desc": null,
-//         "rating": null
-//     },
-//     {
 //         "id": "cjwv2yq8c000z0kygjcsjv4ut",
 //         "title": "bookmark2",
 //         "url": "https://www.catmania.com/cats",
@@ -20,7 +13,7 @@
 const STORE = (function() {
 
   const addBookmark = function(bookmark){
-    bookmark.expanded = false;
+    //bookmark.expanded = false;
     STORE.bookmarksAry.push(bookmark);
   };
 
@@ -37,6 +30,7 @@ const STORE = (function() {
   };
 
   return {
+    addFormVisible: false,
     bookmarksAry:[],
     addBookmark,
     expandBookmark,

@@ -1,13 +1,34 @@
 /* eslint-disable no-undef */
 'use strict';
 
+// update store, call render
 
 const bookmarkApp = (function(){
 
-  function generateNewBookmarkHtml() {
-    $('#js-add-bookmark').click(function() {$('.form-container').html(
-      `
-    <form id="js-addForm" class="formDisplay">
+  function newBookmarkButtonHandler() {
+    $('.form-container').on('click','#js-add-bookmark', function(event) {
+      event.preventDefault();
+      STORE.addFormVisible = true;
+      render();
+    });
+  }
+
+  const render = function(){
+    // Filter item list if store prop is true by item.checked === false
+    // let items = [ ...store.items ];
+    if(STORE.addFormVisible === true){
+      $('.form-container').html(generateFormHtml());
+    } else {
+      $('.form-container').html('<button name="show-new-form-container" id="js-add-bookmark" type="button">New Bookmark</button>');
+    }
+  };
+
+  //.html .hide .show outside of render BAD
+  //no button.click thing .html
+
+  function generateFormHtml(){
+    return `
+    <form id="js-addForm" class="newBookmarkForm">
     <div>
       <label for="bookmarks-entry">Title</label>
       <input name="title" id="new-title-bookmark" type="text" class="js-new-bookmark" placeholder="Bookmark title" required>
@@ -36,51 +57,57 @@ const bookmarkApp = (function(){
       <input type="radio" name="rating" value="4" class="radio-button">
       
     <label for="five" class="label">5</label>
-      <input type="radio" name="rating" value="5" class="radio-button">
+      <input type="radio" name="rating" value="5" class="radio-button" checked>
     </div>
             
     <button id="submitForm" type="submit">Submit</button>
       
     </form>
-   `
-    );
-    });
+   `;
   }
-
-  const render = function(){
-    // Filter item list if store prop is true by item.checked === false
-    // let items = [ ...store.items ];
-    
-
-  };
-
 
   function generateNewBookmarkSubmit(){
-    $('js-addForm.formDisplay').on('submit', '.formContainer', function (event) {
+    $('.form-container').on('submit', '#js-addForm', function (event) {
       event.preventDefault();
-      let bookmarkName = $('new-title-bookmark').val();
-      let bookmarkURL = $('new-url-bookmark').val();
-      let bookmarkDescription = $('new-dscrp-bookmark').val();
-      //let bookmarkRating = $(' ').val();
-      //console.log(bookmarkName);
+
+      let bookmarkName = $('#new-title-bookmark').val();
+      let bookmarkURL = $('#new-url-bookmark').val();
+      let bookmarkDescription = $('#new-dscrp-bookmark').val();
+      let bookmarkRating = $('input[name=\'rating\']:checked').val();
       
-      let newObj = {
+      let newBookmark = {
         title: bookmarkName,
         url: bookmarkURL,
-        desc: bookmarkDescription,
-        rating: bookmarkRatingNumber
+        description: bookmarkDescription,
+        rating: bookmarkRating
       };
-      console.log(newObj);
+      //console.log('newbookMark = ', newBookmark);
+
+      STORE.addFormVisible = false;
+      api.createBookmarkApi(newBookmark)
+        .then(function (newItem) {
+          console.log('item from fetch ', newItem);
+          STORE.addBookmark(newItem);
+        });
     });
   }
+  //display bookmarks on page, collapsed with title, url, description, rating
 
-  function generateBookmarks(){
-    //display bookmarks on page, collapsed with title, url, description, rating
+  function generateBookmarks(bookmarkName){
+    // return `
+    // <div class="bookmarks-onPage">
+    //   <p>${bookmarkName}</p>
+    //   <a href ="${bookmarkURL}">Visit Site</a>
+    //   <p>${bookmarkDescription}</p>
+    //   <button calss="expand-details">Show more</button>
+    //   <button class="delete-bookmark">Delete</button>
+    // </div>
+    // `;
   }
+
 
   
-  function handleFilter(){
-  }
+  function handleFilter(){}
 
 
   function handleDeleteBookmark(){}
@@ -88,7 +115,8 @@ const bookmarkApp = (function(){
 
 
   function bindEventListeners() {
-    generateNewBookmarkHtml();
+    //generateBookmarks();
+    newBookmarkButtonHandler();
     generateNewBookmarkSubmit();
     handleFilter();
     handleDeleteBookmark();

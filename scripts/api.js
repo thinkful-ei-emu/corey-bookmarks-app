@@ -39,24 +39,23 @@ const api = (function(){
   };
 
 
-
-  const createBookmarkApi = function(newBookmark){ //serializedJson
-    let newBookmarkJson = JSON.stringify(newBookmark);
-    //   title: title,
-    //   url: url,
-    //   desc: description,
-    //   rating: rating
-    // });
-    console.log(newBookmarkJson);
+  const createBookmarkApi = function(newBookmark){
+    let newBookmarkJson = JSON.stringify({
+      title: newBookmark.title,
+      url: newBookmark.url,
+      desc: newBookmark.description,
+      rating: newBookmark.rating
+    });
+    //console.log('test for createBookmarkApi ', newBookmarkJson);
+    let error;
     return listApiFetch(`${BASE_URL}/bookmarks`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
-      }),
+      }),     
       body: newBookmarkJson
     });
   };
-
 
 
   const deleteBookmarkApi = function(id){
@@ -73,4 +72,4 @@ const api = (function(){
     
   };
 
-}());
+})();
