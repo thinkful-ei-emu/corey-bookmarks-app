@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 'use strict';
 
+// view layer
 // update store, call render
 const bookmarkApp = (function(){
   const bookmarksContainer = $('.js-bookmarks-list');
@@ -24,16 +25,15 @@ const bookmarkApp = (function(){
     }
     const bookmarksHtml = generateBookmarkItemsString(STORE.bookmarksAry);
     bookmarksContainer.html(bookmarksHtml);
+
+    // error check
+    if(STORE.error){
+      $('#error').text(STORE.error);
+    }
   };
 
-
-  // function generateBookmarkString(newBookmark) {
-  //   const items = bookmarks.map((item) => generateItemElement(item));
-  //   return items.join('');
-  // }
-
   //.html .hide .show outside of render BAD
-  //no button.click thing .html
+  //no button.click things .html
 
   function generateFormHtml(){
     return `
@@ -85,22 +85,15 @@ const bookmarkApp = (function(){
       let bookmarkURL = $('#new-url-bookmark').val();
       let bookmarkDescription = $('#new-dscrp-bookmark').val();
       let bookmarkRating = $('input[name=\'rating\']:checked').val();
-      
-      let newBookmark = {
+
+      const newBookmark = {
         title: bookmarkName,
         url: bookmarkURL,
         description: bookmarkDescription,
         rating: bookmarkRating
       };
-      //console.log('newbookMark = ', newBookmark);
 
-      api.createBookmarkApi(newBookmark)
-        .then(function (newItem) {
-          console.log('item from fetch ', newItem);
-          STORE.addBookmark(newItem);
-          STORE.addFormVisible = false;
-          render();
-        });
+      STORE.addBookmark(newBookmark);
     });
   }
 
@@ -135,46 +128,23 @@ const bookmarkApp = (function(){
     );
   }
 
-  //function generateBookmarks(newitem){
-  //formContainer.on('submit', '.newBookmark-location', function (event) {
-  //event.preventDefault();
-  //const expanded = newBookmark.expand ? 'expanded'
-  //return `
-  //   <li>
-  //     <div class="bookmarks-onPage">
-  //       <div id="box">
-  //         <p>${title.bookmarkName}</p>
-  //         <a href ="${url.bookmarkURL}">Visit Site</a>
-  //         <p>${description.bookmarkDescription}</p>
-  //         <button calss="expand-details">Show more</button>
-  //         <button class="delete-bookmark">Delete</button>
-  //       </div>
-  //     </div>
-  //   </li>
-  // `;
-  //});
-  //}
-
-
   
-  function handleFilter(){}
+  function handleFilter(){
+    $('#rate-drop-down').on('change', function(){
+      const rating = $(this).val();
+      STORE.filterBookmarks(rating);
+    });
+  }
 
 
-  function handleDeleteBookmark(){}
-
-
-
-  function bindEventListeners() {
-    //generateBookmarks();
+  function registerEventListeners() {
     newBookmarkButtonHandler();
     generateNewBookmarkSubmit();
     handleFilter();
-    handleDeleteBookmark();
   }
 
   return {
-    render: render,
-    bindEventListeners: bindEventListeners,
+    render,
+    registerEventListeners,
   };
-
 })();

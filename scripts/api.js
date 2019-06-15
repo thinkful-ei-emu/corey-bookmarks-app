@@ -67,8 +67,8 @@ const api = (function(){
   return {
     getBookmarkApi,
     createBookmarkApi,
-    deleteBookmarkApi
-    
+    deleteBookmarkApi,
+    //listApiFetch
   };
 
 })();
