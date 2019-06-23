@@ -40,7 +40,7 @@ const STORE = (function() {
   };
 
   const toggleExpandBookmark = function(id){
-    console.log('test expandBookmark');
+    //console.log('test expandBookmark');
     const bookmarkToExpand = STORE.allBookmarks.find((bookmark) => {
       return bookmark.id === id;
     });
